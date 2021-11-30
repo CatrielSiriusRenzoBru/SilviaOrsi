@@ -1,0 +1,76 @@
+{% extends "../index.html" %}
+{% block content %}
+{% load static %}
+  <!-- Daterange picker -->
+
+
+
+<body class="hold-transition sidebar-mini" xmlns="http://www.w3.org/1999/html">
+    <div class="content-wrapper">
+      <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-4">
+          </div>
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Reservas</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+        <div class="container p-1">
+             <form action="" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+                 {% if form1.errors %}
+                    <p>{{ form1.errors}}</p>
+                 {% endif %}
+                <div class="card card-default ">
+                    <div class="card-header">
+                        <h3 class="card-title">Cargar reserva </h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                  <!-- /.card-header -->
+                      <div class="card-body">
+                          <div class="row">
+                          <!-- /.col -->
+                              <div class="form-group col-2">
+                                        <label>Fecha:</label>
+                                <div><input type="date" id="date" name="date" value=""   max=""></div>
+                              </div>
+
+
+                              <div class="form-group  col-3">
+                                        <label>Hora: </label>
+                                            <div><input type="time" name="hora" min="08:00" max="22:30" step="600"></div>
+                                </div>
+                          </div>
+                              <div class="form-group  col-4">
+                                     <label>Cliente</label>
+                                        <select class="form-control form-control-sm" name='clientes' id='clientes' >
+                                        <option value=""> Selecione un cliente</option>
+                                            {% for p in clientes %}
+                                        <option codigo={{p.0}} value='{{p.0}}'>{{p.1}}/{{p.2}}</option>
+                                            {% endfor %}
+                                        </select>
+                              </div>
+                      </div>
+                </div>
+        <!-- /.card -->
+                <button type="submit" id="boton" class="btn btn-secondary">Save </button>
+                <a class="btn btn-danger" href="/reservas_list"> Cancel </a>
+            </form>
+          </div>
+        </div>
+    </div>
+<script src="{% static '/JS/Deposit/Deposit.js'%}"></script>
+
+</body>
+
+
+{% endblock%}
