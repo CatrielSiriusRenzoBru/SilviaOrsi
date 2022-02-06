@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Setup.views import welcome,login,logout
-from Depilacion.views import reservas,reserva_list
+from Depilacion.views import reservas,reserva_list,reserva_xls,confirmacion_reserva,cancelacion_reserva,mensaje,fichas
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,11 @@ urlpatterns = [
     path('logout/', logout),
     path('reservas/',reservas),
     path('reservas_list/',reserva_list),
+    path('reservas_xls/<str:fecha>',reserva_xls),
+    path('confirmacion_reserva/<str:fecha>/<int:id>',confirmacion_reserva),
+    path('cancelacion_reserva/<str:fecha>/<int:id>',cancelacion_reserva),
+    path('mensaje/<int:id>/<str:fecha>',mensaje),
+    path('fichas/',fichas),
 ]
 
 admin.site.site_header ="Silvia Orsi"

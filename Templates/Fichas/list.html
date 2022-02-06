@@ -10,36 +10,41 @@
       <div class="container-fluid">
         <div class="container p-1">
           <div class="col-sm-4">
-            <h1>Reservas</h1>
+            <h1>Fichas</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
       </section>
       <div  class="container p-1">
-        <div><a type="button" class="fas fa-plus-circle"  href="/reservas" > Crear una nueva reserva</a></div>
+        <div><a type="button" class="fas fa-plus-circle"  href="/admin/Depilacion/depilacion/add" > Crear una nueva ficha</a></div>
         <br>
           {{status}}
-        <form action="/reservas_list/" method="POST" class="form-inline">{% csrf_token %}
-                        <input type ='date' class="form-control col-sm-4" name='date' id="date" required>
-                        <div class="input-group-append">
+        <form action="" method="POST" class="form-inline">{% csrf_token %}
+                        <label>Paciente : </label>  &nbsp
+                            <div class ="col-8">
+                                            <select class="form-control form-control-sm-8 " name='paciente' id='paciente' required >
+                                            <option value=""> Select type</option>
+                                                {% for p in paciente %}
+                                            <option codigo={{p.0}} value='{{p.0}}'>{{p.1}}</option>
+                                                {% endfor %}
+                                            </select>
+
                             <button class="btn btn-primary" type ="submit" >
                               <i class="fas fa-search fa-sm"></i>
                             </button>
-                        </div>
+                            </div>
         </form>
         <br>
             <!-- TABLE: LATEST ORDERS -->
             <div class="card ">
               <div class="card-header border-transparent">
-                <h3 class="card-title">Reservas</h3> &nbsp &nbsp
-                  <a href="/reservas_xls/{{fecha}}" ><i class="fas fa-file-excel"></i></a>
+                <h3 class="card-title">Fichas</h3> &nbsp &nbsp
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" >
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
               </div>
-
               <!-- /.card-header -->
               <div class="card-body p-1>
                 <div class="table-responsive">
@@ -47,36 +52,19 @@
                     <thead>
                     <tr>
                       <th>Fecha</th>
-                      <th>Hora</th>
-                      <th>Cliente</th>
-                      <th>Status</th>
+                      <th>Foto tipo</th>
+                      <th>Paciente</th>
                       <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for l in consulta %}
+                    {% for l in fichas %}
                     <tr>
-                      <td><i><strong>{{l.1}}</strong></i></td>
-                      <td>{{l.3}}</td>
-                      <td>{{l.4}}</td>
-                      <td> {% if l.5 == 1 %}
-                              <span class="badge badge-success">Confirmado</span>
-                           {% elif l.5 == 2   %}
-                              <span class="badge badge-danger">Cancelado</span>
-                           {% else  %}
-                          <span class="badge badge-warning">reservado</span>
-                            {% endif %}
-                      </td>
+                      <td><i><strong>{{l.0}}</strong></i></td>
+                      <td>{{l.1}}</td>
+                      <td>{{l.2}}/{{l.3}}</td>
                       <td>
-                         {% if l.5 == 1 %}
-                        <a href="/cancelacion_reserva/{{fecha}}/{{l.0}}"><span class="badge badge-danger">Cancelar</span></a>
-                        <a href="/admin/Depilacion/depilacion/add" target="_blank"><span class="badge badge-info">Crear ficha</span></a>
-                          {% elif l.5 == 2 %}
-                          {% else %}
-                          <a href="/confirmacion_reserva/{{fecha}}/{{l.0}}"><span class="badge badge-success">Confirmar</span></a>
-                            <a href="/cancelacion_reserva/{{fecha}}/{{l.0}}"><span class="badge badge-danger">Cancelar</span></a>
-                             <a href="/mensaje/{{l.0}}/{{fecha}}"><i style="float: right;" class="fab fa-whatsapp"></i>
-                          {% endif %}
+                        <a href="/admin/Depilacion/depilacion/{{l.4}}/change"><span class="badge badge-info">Detalle</span></a>
                       </td>
                     </tr>
                     {% endfor %}

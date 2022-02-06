@@ -50,3 +50,10 @@ class Reservas (models.Model):
     Cliente = models.ForeignKey(clientes, on_delete=models.SET_NULL, blank=True, null=True)
     Fecha_reserva = models.DateField()
     Hora_reserva = models.TimeField()
+
+class Status (models.Model):
+    Status = models.CharField(max_length= 20)
+
+class Confirmacion (models.Model):
+    Reserva = models.ForeignKey(Reservas, on_delete=models.SET_NULL, blank=True, null=True)
+    Status = models.ForeignKey(Status, on_delete=models.SET_NULL, blank=True, null=True)
